@@ -28,7 +28,7 @@ const roles = [
     title: 'Delivery Partner',
     description: 'Flexible hours, competitive pay. Start delivering today.',
     icon: <Bike size={32} />,
-    image: 'https://images.unsplash.com/photo-1626225366472-7634f9a35e4e?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1526367764999-575da8f113cc?q=80&w=2000&auto=format&fit=crop',
     color: 'from-emerald-500 to-teal-600',
     accent: '#10B981'
   }
@@ -162,7 +162,7 @@ export default function LoginPage({ setUser, darkMode }) {
                 >
                   {/* Image Background */}
                   <div className="absolute inset-0 transition-transform duration-1000 group-hover:scale-110">
-                    <img src={role.image} alt={role.title} className="w-full h-full object-cover opacity-50 dark:opacity-40 group-hover:opacity-70 dark:group-hover:opacity-60 transition-opacity" />
+                     <img src={role.image} alt={role.title} className="w-full h-full object-cover opacity-70 dark:opacity-60 group-hover:opacity-100 dark:group-hover:opacity-90 transition-opacity" />
                     <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-slate-950 via-white/40 dark:via-slate-950/40 to-transparent" />
                   </div>
                   
