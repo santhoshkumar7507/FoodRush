@@ -28,7 +28,7 @@ const roles = [
     title: 'Delivery Partner',
     description: 'Flexible hours, competitive pay. Start delivering today.',
     icon: <Bike size={32} />,
-    image: 'https://images.unsplash.com/photo-1526367764999-575da8f113cc?auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1626225366472-7634f9a35e4e?auto=format&fit=crop&w=1000&q=80',
     color: 'from-emerald-500 to-teal-600',
     accent: '#10B981'
   }
