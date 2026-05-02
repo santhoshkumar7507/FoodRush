@@ -7,6 +7,7 @@ import {
   BarChart3, Settings, ShieldCheck, Activity, Users, Flame, ArrowRight, Plus, Search, Mail, Phone, MapPin
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../config';
 
 export default function RestaurantApp({ user, darkMode }) {
   const { messages, sendMessage } = useWebSocket('restaurant', user.user_id);
@@ -22,7 +23,7 @@ export default function RestaurantApp({ user, darkMode }) {
   const restaurantId = "r1"; 
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/orders/restaurant/${restaurantId}`)
+    fetch(`${API_BASE_URL}/api/orders/restaurant/${restaurantId}`)
       .then(res => res.json())
       .then(data => {
         setOrders(data);
@@ -41,7 +42,7 @@ export default function RestaurantApp({ user, darkMode }) {
   }, [activeTab]);
 
   const fetchMenu = () => {
-    fetch(`http://127.0.0.1:8000/api/restaurants/${restaurantId}/menu`)
+    fetch(`${API_BASE_URL}/api/restaurants/${restaurantId}/menu`)
       .then(res => res.json())
       .then(data => setMenu(data))
       .catch(err => console.error("Error fetching menu:", err));
@@ -49,7 +50,7 @@ export default function RestaurantApp({ user, darkMode }) {
 
   const handleAddItem = (e) => {
     e.preventDefault();
-    fetch(`http://127.0.0.1:8000/api/restaurants/${restaurantId}/menu`, {
+    fetch(`${API_BASE_URL}/api/restaurants/${restaurantId}/menu`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...newItem, id: `m${Date.now()}`, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80' })
@@ -64,7 +65,7 @@ export default function RestaurantApp({ user, darkMode }) {
   };
 
   const deleteItem = (itemId) => {
-    fetch(`http://127.0.0.1:8000/api/restaurants/${restaurantId}/menu/${itemId}`, {
+    fetch(`${API_BASE_URL}/api/restaurants/${restaurantId}/menu/${itemId}`, {
         method: 'DELETE'
     })
     .then(() => fetchMenu())

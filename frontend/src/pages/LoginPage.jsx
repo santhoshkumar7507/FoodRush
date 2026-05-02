@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Utensils, ShoppingBag, Store, Bike, ArrowRight, User, Mail, Phone, ChevronLeft, Building, MapPin, FileText, Zap, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../config';
 
 const roles = [
   {
@@ -59,7 +60,7 @@ export default function LoginPage({ setUser, darkMode }) {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/login', {
+      const res = await fetch(`${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

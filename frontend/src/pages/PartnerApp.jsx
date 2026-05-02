@@ -4,6 +4,7 @@ import useGPS from '../hooks/useGPS';
 import OrderCard from '../components/OrderCard';
 import { LogOut, Bike, Map, CheckCircle2, User, Wallet, Star, Navigation, Power, Bell, MapPin, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../config';
 
 export default function PartnerApp({ user, darkMode }) {
   const { messages, sendMessage } = useWebSocket('partner', user.user_id);
@@ -18,7 +19,7 @@ export default function PartnerApp({ user, darkMode }) {
   });
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/orders/partner/available')
+    fetch(`${API_BASE_URL}/api/orders/partner/available`)
       .then(res => res.json())
       .then(data => setAvailableOrders(data))
       .catch(err => console.error("Error fetching available orders:", err));
@@ -66,7 +67,7 @@ export default function PartnerApp({ user, darkMode }) {
 
   const acceptOrder = async (orderId) => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/partners/${user.user_id}/accept/${orderId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/partners/${user.user_id}/accept/${orderId}`, {
         method: 'POST'
       });
       if (res.ok) {
@@ -85,7 +86,7 @@ export default function PartnerApp({ user, darkMode }) {
       order_id: activeOrder.id
     });
     setActiveOrder(null);
-    fetch('http://127.0.0.1:8000/api/orders/partner/available')
+    fetch(`${API_BASE_URL}/api/orders/partner/available`)
       .then(res => res.json())
       .then(data => setAvailableOrders(data));
   };

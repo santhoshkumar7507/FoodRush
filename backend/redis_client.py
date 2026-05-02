@@ -1,8 +1,11 @@
 import redis
 import json
+import os
+
+REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
 
 try:
-    redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+    redis_client = redis.from_url(REDIS_URL, decode_responses=True)
     redis_client.ping()
 except Exception as e:
     print(f"Redis not available: {e}")
