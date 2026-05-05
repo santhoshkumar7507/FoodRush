@@ -1,3 +1,4 @@
+// Updated: 2026-05-05T09:22:15Z
 const getApiUrl = () => {
     if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
     if (typeof window !== 'undefined') {
