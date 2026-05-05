@@ -1,7 +1,13 @@
 const getApiUrl = () => {
     if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
-    if (typeof window !== 'undefined') return `http://${window.location.hostname}:8000`;
-    return 'http://127.0.0.1:8000';
+    if (typeof window !== 'undefined') {
+        const hostname = window.location.hostname;
+        if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('192.168.')) {
+            return `http://${hostname}:8000`;
+        }
+    }
+    // Default production backend URL
+    return 'https://foodrush-backend.onrender.com';
 };
 
 const getWsUrl = (apiUrl) => {
@@ -9,11 +15,8 @@ const getWsUrl = (apiUrl) => {
     try {
         const url = new URL(apiUrl);
         const protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
-        // Add /ws endpoint suffix if not already present? Actually the backend route is /ws/{role}/{user_id}
-        // So the base URL should just be the host.
         return `${protocol}//${url.host}`;
     } catch (e) {
-        if (typeof window !== 'undefined') return `ws://${window.location.hostname}:8000`;
         return 'ws://127.0.0.1:8000';
     }
 };
