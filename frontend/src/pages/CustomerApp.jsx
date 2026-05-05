@@ -10,6 +10,7 @@ import ETATimer from '../components/ETATimer';
 import confetti from 'canvas-confetti';
 import { LogOut, User, Navigation, Search, Bell, MapPin, Heart, ShoppingBag, Utensils, Mail, Phone, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../config';
 
 export default function CustomerApp({ user, darkMode }) {
   const { messages, sendMessage } = useWebSocket('customer', user.user_id);
@@ -26,7 +27,7 @@ export default function CustomerApp({ user, darkMode }) {
   const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/restaurants')
+    fetch(`${API_BASE_URL}/api/restaurants`)
       .then(res => res.json())
       .then(data => {
         setRestaurants(data);
@@ -98,7 +99,7 @@ export default function CustomerApp({ user, darkMode }) {
     const totalAmount = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0) + selectedRestaurant.delivery_fee;
     
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/orders', {
+      const res = await fetch(`${API_BASE_URL}/api/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

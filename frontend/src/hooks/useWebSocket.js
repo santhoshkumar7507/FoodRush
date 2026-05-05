@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { WS_BASE_URL } from '../config';
 
 export default function useWebSocket(role, userId) {
   const [messages, setMessages] = useState([]);
@@ -8,7 +9,7 @@ export default function useWebSocket(role, userId) {
     let reconnectTimeout = null;
     
     const connect = () => {
-      ws.current = new WebSocket(`ws://127.0.0.1:8000/ws/${role}/${userId}`);
+      ws.current = new WebSocket(`${WS_BASE_URL}/ws/${role}/${userId}`);
       
       ws.current.onopen = () => {
         console.log(`WebSocket connected as ${role}`);
